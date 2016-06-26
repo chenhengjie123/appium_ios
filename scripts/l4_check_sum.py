@@ -14,10 +14,10 @@ SCREENSHOT_NAME = "check_sum_error.png"
 
 class TestAppiumIosL4(unittest.TestCase):
     def setUp(self):
-        # open TestApp.app on simulator iPhone 4s (9.2)
+        # open TestApp.app on simulator iPhone 4s (9.3)
         desired_caps = {}
         desired_caps['platformName'] = 'iOS'
-        desired_caps['platformVersion'] = '9.2'
+        desired_caps['platformVersion'] = '9.3'
 
         # simulator
         desired_caps['deviceName'] = 'iPhone 4s'
@@ -39,7 +39,6 @@ class TestAppiumIosL4(unittest.TestCase):
             os.remove(SCREENSHOT_NAME)
 
     def tearDown(self):
-
         # check if need to take screenshot
         if sys.exc_info()[0]:  # Returns the info of exception being handled
             # take screenshot
