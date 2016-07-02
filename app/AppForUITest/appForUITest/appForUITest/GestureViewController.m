@@ -6,13 +6,13 @@
 //  Copyright © 2016 hengjie chen. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "GestureViewController.h"
 
-@interface SecondViewController ()
+@interface GestureViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation GestureViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

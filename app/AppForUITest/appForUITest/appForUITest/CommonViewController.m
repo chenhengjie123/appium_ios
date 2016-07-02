@@ -6,13 +6,13 @@
 //  Copyright © 2016 hengjie chen. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "CommonViewController.h"
 
-@interface FirstViewController ()
+@interface CommonViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation CommonViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
