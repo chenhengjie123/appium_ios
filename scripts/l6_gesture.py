@@ -18,7 +18,6 @@ class TestAppiumIosL6(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        global driver
         # open TestApp.app on simulator iPhone 4s (9.3)
         desired_caps = {}
         desired_caps['platformName'] = 'iOS'
@@ -30,7 +29,7 @@ class TestAppiumIosL6(unittest.TestCase):
             '../app/AppForUITest/appForUITest/build/Debug-iphonesimulator/appForUITest.app'
         )
 
-        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        cls.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
         # clear screenshot
         if os.path.exists(SCREENSHOT_FOLDER):
@@ -40,14 +39,10 @@ class TestAppiumIosL6(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        global driver
-        driver.quit()
+        cls.driver.quit()
 
     def setUp(self):
         self.currentResult = None
-
-        global driver
-        self.driver = driver
 
         # Go to gesture tab
         self.driver.find_element_by_accessibility_id("Gesture").click()
@@ -55,8 +50,6 @@ class TestAppiumIosL6(unittest.TestCase):
         sys.exc_clear()
 
     def tearDown(self):
-        global driver
-        self.driver = driver
 
         if sys.exc_info()[0]:  # Returns the info of exception being handled
             current_method_name = self.id().split(".")[-1]
@@ -82,6 +75,8 @@ class TestAppiumIosL6(unittest.TestCase):
         # drag and drop
         self.driver.drag_and_drop(element1, element2)
 
+        pass
+
 
 
 
@@ -98,6 +93,8 @@ class TestAppiumIosL6(unittest.TestCase):
         # move from button 1 to button 2
         action.press(btn1).wait(100).move_to(btn2).wait(100).release().perform()
 
+        pass
+
 
 
 
@@ -107,10 +104,12 @@ class TestAppiumIosL6(unittest.TestCase):
         self.driver.find_element_by_accessibility_id("TableView(swipe and find in scroll view)").click()
 
         # find element
-        z_item = self.driver.find_element_by_accessibility_id("m")
+        z_item = self.driver.find_element_by_accessibility_id("s")
 
         # scroll to visible
         z_item.click()
+
+        pass
 
 
 if __name__ == '__main__':
