@@ -70,10 +70,6 @@ class TestAppiumIosL6(unittest.TestCase):
         # swipe
         self.driver.swipe(start_x = 100, start_y = 100, end_x = 200, end_y = 200, duration = 1000)
 
-        element1 = None
-        element2 = None
-        # drag and drop
-        self.driver.drag_and_drop(element1, element2)
 
         pass
 
