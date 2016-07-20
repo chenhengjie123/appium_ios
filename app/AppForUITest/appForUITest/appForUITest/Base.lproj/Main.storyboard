@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--common-->
@@ -139,7 +140,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wkA-DS-VJC" id="3DW-i5-y9o">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -227,7 +228,7 @@
         <!--WebView-->
         <scene sceneID="ytc-CO-fsf">
             <objects>
-                <viewController title="WebView" id="woo-OD-LpQ" sceneMemberID="viewController">
+                <viewController title="WebView" id="woo-OD-LpQ" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nlB-T1-SCq"/>
                         <viewControllerLayoutGuide type="bottom" id="0vJ-O0-OK1"/>
@@ -235,13 +236,62 @@
                     <view key="view" contentMode="scaleToFill" id="szn-RV-ZhT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUs-SO-1Cq">
+                                <rect key="frame" x="0.0" y="64" width="600" height="427"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="testLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzO-EC-8oq">
+                                <rect key="frame" x="265" y="511" width="71" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://baidu.com" borderStyle="roundedRect" placeholder="Input http url" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fjh-kg-Fd8">
+                                <rect key="frame" x="15" y="28" width="509" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="url_input"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4m-4z-EuF">
+                                <rect key="frame" x="542" y="28" width="30" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="go_button"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="CDV-1r-h84"/>
+                                </constraints>
+                                <state key="normal" title="Go"/>
+                                <connections>
+                                    <action selector="goToUrl:" destination="woo-OD-LpQ" eventType="touchUpInside" id="3gU-un-NyQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fjh-kg-Fd8" firstAttribute="top" secondItem="d4m-4z-EuF" secondAttribute="top" id="3O9-pb-afh"/>
+                            <constraint firstItem="Fjh-kg-Fd8" firstAttribute="top" secondItem="nlB-T1-SCq" secondAttribute="bottom" constant="8" symbolic="YES" id="Ca9-z8-uua"/>
+                            <constraint firstAttribute="trailing" secondItem="eUs-SO-1Cq" secondAttribute="trailing" id="EKQ-hb-YdH"/>
+                            <constraint firstItem="eUs-SO-1Cq" firstAttribute="centerX" secondItem="LzO-EC-8oq" secondAttribute="centerX" id="NnP-K1-6VQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d4m-4z-EuF" secondAttribute="trailing" constant="8" id="Qvb-Cw-9E0"/>
+                            <constraint firstItem="Fjh-kg-Fd8" firstAttribute="leading" secondItem="szn-RV-ZhT" secondAttribute="leadingMargin" constant="-5" id="Uds-rt-esR"/>
+                            <constraint firstItem="d4m-4z-EuF" firstAttribute="leading" secondItem="Fjh-kg-Fd8" secondAttribute="trailing" constant="18" id="cqE-Uk-lh3"/>
+                            <constraint firstItem="eUs-SO-1Cq" firstAttribute="top" secondItem="Fjh-kg-Fd8" secondAttribute="bottom" constant="6" id="gm4-MZ-tFz"/>
+                            <constraint firstItem="LzO-EC-8oq" firstAttribute="top" secondItem="eUs-SO-1Cq" secondAttribute="bottom" constant="20" id="jjR-SH-xff"/>
+                            <constraint firstItem="eUs-SO-1Cq" firstAttribute="leading" secondItem="szn-RV-ZhT" secondAttribute="leading" id="of6-Eq-Awr"/>
+                            <constraint firstItem="0vJ-O0-OK1" firstAttribute="top" secondItem="LzO-EC-8oq" secondAttribute="bottom" constant="19" id="xvT-ES-SXb"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="WebView" image="second" id="oC5-iC-0ev"/>
+                    <connections>
+                        <outlet property="GoButton" destination="d4m-4z-EuF" id="P9y-8w-Rb9"/>
+                        <outlet property="goButton" destination="d4m-4z-EuF" id="TsQ-63-Dvw"/>
+                        <outlet property="testLabel" destination="LzO-EC-8oq" id="04e-hb-MF8"/>
+                        <outlet property="urlTextField" destination="Fjh-kg-Fd8" id="5en-7A-ePJ"/>
+                        <outlet property="webView" destination="eUs-SO-1Cq" id="9c7-PV-bws"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kmf-bw-AkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-570" y="1103"/>
+            <point key="canvasLocation" x="-565" y="1103"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

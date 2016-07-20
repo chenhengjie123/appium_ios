@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		921EFEA91D3D28300083C8F7 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921EFEA81D3D28300083C8F7 /* WebViewController.m */; };
 		9280E07A1D21839900201ACA /* GestureLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9280E0791D21839900201ACA /* GestureLockViewController.m */; };
 		9280E0831D22DA8000201ACA /* DBGuestureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9280E0801D22DA8000201ACA /* DBGuestureButton.m */; };
 		9280E0841D22DA8000201ACA /* DBGuestureLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 9280E0821D22DA8000201ACA /* DBGuestureLock.m */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		921EFEA71D3D28300083C8F7 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = ../WebViewController.h; sourceTree = "<group>"; };
+		921EFEA81D3D28300083C8F7 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = ../WebViewController.m; sourceTree = "<group>"; };
 		9280E0781D21839900201ACA /* GestureLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureLockViewController.h; sourceTree = "<group>"; };
 		9280E0791D21839900201ACA /* GestureLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureLockViewController.m; sourceTree = "<group>"; };
 		9280E07F1D22DA8000201ACA /* DBGuestureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBGuestureButton.h; path = DBGestureLock/DBGuestureButton.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				9280E0791D21839900201ACA /* GestureLockViewController.m */,
 				9280E0851D2425F000201ACA /* ZoomImageViewController.h */,
 				9280E0861D2425F000201ACA /* ZoomImageViewController.m */,
+				921EFEA71D3D28300083C8F7 /* WebViewController.h */,
+				921EFEA81D3D28300083C8F7 /* WebViewController.m */,
 				9280E08D1D27C12A00201ACA /* TableViewController.h */,
 				9280E08E1D27C12A00201ACA /* TableViewController.m */,
 			);
@@ -193,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9280E0871D2425F000201ACA /* ZoomImageViewController.m in Sources */,
+				921EFEA91D3D28300083C8F7 /* WebViewController.m in Sources */,
 				9295980D1D184DC600032A71 /* GestureViewController.m in Sources */,
 				9280E0831D22DA8000201ACA /* DBGuestureButton.m in Sources */,
 				929598071D184DC600032A71 /* AppDelegate.m in Sources */,
