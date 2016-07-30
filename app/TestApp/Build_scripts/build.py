@@ -12,14 +12,14 @@ from datetime import datetime
 import plistlib
 
 #configuration for iOS build setting
-BUILD_METHOND = "xctool" # "xcodebuild"
+BUILD_METHOND = "xcodebuild" # "xcodebuild"
 # specify build SDK
 SDK = "iphoneos"
 # specify build provisioning profile
-PROVISIONING_PROFILE = "iOS Developer"
+PROVISIONING_PROFILE = "f9b2ec77-ef12-4b34-acd1-fbd93c4b5e55.mobileprovision"
 # configuration for pgyer
-USER_KEY = "6616f8661f4c65fc9a4f3e55221e7799"
-API_KEY = "117a9362c1b3b022912bc1e72cbc54db"
+USER_KEY = "6616f8661f4c65fc9a4f3e55221e77**"
+API_KEY = "117a9362c1b3b022912bc1e72cbc54**"
 PGYER_UPLOAD_URL = "https://www.pgyer.com/apiv1/app/upload"
 
 
@@ -38,7 +38,7 @@ class BuildIPA(object):
         self.build_params = self.getBuildParams(project, target, workspace, scheme)
 
     def prepare(self):
-        self.changeBuildVersion()
+        # self.changeBuildVersion()
         print "Output folder for ipa ============== %s" % self.output_folder
         try:
             shutil.rmtree(self.output_folder)
@@ -46,12 +46,12 @@ class BuildIPA(object):
             pass
         finally:
             os.makedirs(self.output_folder)
-        print "Update pod dependencies ============="
-        cmd_shell = 'pod repo update'
-        self.runShell(cmd_shell)
-        print "Install pod dependencies ============="
-        cmd_shell = 'pod install'
-        self.runShell(cmd_shell)
+        # print "Update pod dependencies ============="
+        # cmd_shell = 'pod repo update'
+        # self.runShell(cmd_shell)
+        # print "Install pod dependencies ============="
+        # cmd_shell = 'pod install'
+        # self.runShell(cmd_shell)
 
     def changeBuildVersion(self):
         build_version_list = self.build_version.split('.')
@@ -71,7 +71,7 @@ class BuildIPA(object):
         if project is None and workspace is None:
             exit(1)
         elif project is not None:
-            build_params = '-project %s -target %s' % (project, target)
+            build_params = '-project %s -scheme %s' % (project, target)
             # specify package name
             self._package_name = "{0}_{1}".format(target, self.configuration)
             self._app_name = target
@@ -108,7 +108,7 @@ class BuildIPA(object):
 
     def build(self):
         self.prepare()
-        self.buildClean()
+        # self.buildClean()
         self.buildArchive()
         self.exportIPA()
 
@@ -207,11 +207,11 @@ def saveQRCodeImage(appDownloadPageURL, output_folder):
 
 def main():
     parser = OptionParser()
-    parser.add_option("-w", "--workspace", default = 'Store.xcworkspace', help="Build the workspace name.xcworkspace.", metavar="name.xcworkspace")
+    parser.add_option("-w", "--workspace", help="Build the workspace name.xcworkspace.", metavar="name.xcworkspace")
     parser.add_option("-p", "--project", help="Build the project name.xcodeproj.", metavar="name.xcodeproj")
-    parser.add_option("-s", "--scheme", default = 'StoreCI', help="Build the scheme specified by schemename. Required if building a workspace.", metavar="schemename")
+    parser.add_option("-s", "--scheme", help="Build the scheme specified by schemename. Required if building a workspace.", metavar="schemename")
     parser.add_option("-t", "--target", help="Build the target specified by targetname. Required if building a project.", metavar="targetname")
-    parser.add_option("-v", "--build_version", default = '2.6.0.1', help="Specify build version number.", metavar="build_version")
+    parser.add_option("-v", "--build_version", default = '0.0.1', help="Specify build version number.", metavar="build_version")
     parser.add_option("-l", "--plist_path", help="Specify build plist path.", metavar="plist_path")
     parser.add_option("-c", "--configuration", default = 'Release', help="Specify build configuration. Default value is Release.", metavar="configuration")
     parser.add_option("-o", "--output", default = 'BuildProducts', help="specify output filename", metavar="output_filename")
@@ -230,13 +230,15 @@ def main():
     output = options.output
     update_description = options.update_description
 
-    if plist_path is None:
-        plist_file_name = '%s-Info.plist' % scheme
-        plist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, plist_file_name))
+    # if plist_path is None:
+    #     plist_file_name = '%s-Info.plist' % scheme
+    #     plist_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir, plist_file_name))
 
     build_ipa = BuildIPA(
         workspace = workspace,
         scheme = scheme,
+        project = project,
+        target = target,
         plist_path = plist_path,
         build_version = build_version,
         configuration = configuration,
@@ -247,9 +249,9 @@ def main():
     build_ipa.build()
     build_products = build_ipa.getBuildProducts()
     ipa_path = build_products['ipa_path']
-    appDownloadPageURL = uploadIpaToPgyer(ipa_path, update_description)
+    # appDownloadPageURL = uploadIpaToPgyer(ipa_path, update_description)
     output_folder = os.path.dirname(ipa_path)
-    saveQRCodeImage(appDownloadPageURL, output_folder)
+    # saveQRCodeImage(appDownloadPageURL, output_folder)
 
 
 if __name__ == '__main__':
