@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 import os
 import unittest
-import sys
-import shutil
 
 from custom_driver.custom_driver import CustomDriver
-from appium.webdriver.common.touch_action import TouchAction
 
 # Returns abs path relative to this file and not cwd
 PATH = lambda p: os.path.abspath(
@@ -35,6 +32,18 @@ class TestAppiumIosL9(unittest.TestCase):
     def test_custom_tap(self):
         el = self.driver.find_element_by_accessibility_id("Gesture")
         self.driver.tap_element_coordinate(el)
+
+        pass
+
+    def test_fixed_zoom(self):
+        self.driver.find_element_by_accessibility_id("Gesture").click()
+        self.driver.find_element_by_accessibility_id("Image (Zoom and Pinch)").click()
+
+        image_item = self.driver.find_element_by_accessibility_id("imageScrollView")
+
+        self.driver.zoom(image_item, percent = 150, steps = 10)
+
+        pass
 
 
 
