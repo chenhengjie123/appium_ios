@@ -1,12 +1,37 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
+import logging
 
 from appium import webdriver
 import pytest
 
 
 PY3 = sys.version_info[0] == 3
+
+logging.basicConfig(level = logging.DEBUG,
+                    filename = "/Users/hengjiechen/Documents/Training/appium_ios/scripts/l13_page_object/test.log",
+                    filemode = "w",
+                    stream = sys.stdout,
+                    format = "%(asctime)s - [%(name)s] %(levelname)s: %(message)s")
+
+
+def pytest_runtest_setup(item):
+    framework_logger = logging.getLogger("pytest")
+    framework_logger.info("============================Begin to run %s============================" % item)
+
+
+def pytest_runtest_teardown(item, nextitem):
+    framework_logger = logging.getLogger("pytest")
+    framework_logger.info("============================Finish running %s============================" % item)
+
+@pytest.fixture(scope = 'function')
+def logger(request):
+    test_logger = logging.getLogger(request.function.func_name)
+    test_logger.setLevel(logging.DEBUG)
+
+    return test_logger
+
 
 def pytest_addoption(parser):
     parser.addoption("--app_path", help="path of app file", required=True)
