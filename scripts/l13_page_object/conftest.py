@@ -9,26 +9,22 @@ import pytest
 
 PY3 = sys.version_info[0] == 3
 
-logging.basicConfig(level = logging.DEBUG,
+logging.basicConfig(level = logging.INFO,
                     filename = "/Users/hengjiechen/Documents/Training/appium_ios/scripts/l13_page_object/test.log",
                     filemode = "w",
                     stream = sys.stdout,
                     format = "%(asctime)s - [%(name)s] %(levelname)s: %(message)s")
+framework_logger = logging.getLogger("pytest")
 
-
+@pytest.mark.trylast
 def pytest_runtest_setup(item):
-    framework_logger = logging.getLogger("pytest")
-    framework_logger.info("============================Begin to run %s============================" % item)
+    framework_logger.info("==Begin to run test case %s==" % item.name)
 
-
-def pytest_runtest_teardown(item, nextitem):
-    framework_logger = logging.getLogger("pytest")
-    framework_logger.info("============================Finish running %s============================" % item)
 
 @pytest.fixture(scope = 'function')
 def logger(request):
+    # set function name as tag automatically
     test_logger = logging.getLogger(request.function.func_name)
-    test_logger.setLevel(logging.DEBUG)
 
     return test_logger
 
@@ -85,10 +81,32 @@ def pytest_runtest_makereport(item, call):
     extra = getattr(report, 'extra', [])
     driver = getattr(item.session, '_driver', None)
     failure = report.failed
+
+
+
+    # add log
+    if report.when == "setup":
+        framework_logger.info("==Finish running setup of test case %s" % item.name)
+        framework_logger.info("**Test result of setup: %s" % report.outcome)
+    if report.when == "call":
+        # only log result of test case itself. Skip setup and teardown
+        framework_logger.info("==Finish running test case %s" % item.name)
+        framework_logger.info("**Test result of test case: %s**" % report.outcome)
+    if report.when == "teardown":
+        framework_logger.info("==Finish running teardown of %s" % item.name)
+        framework_logger.info("**Test result of teardown: %s" % report.outcome)
+
+    if not report.passed:
+        framework_logger.info("%s infos: %s" % (report.outcome.capitalize(), str(report.longrepr.reprcrash)))
+        framework_logger.error("%s traceback: %s" % (report.outcome.capitalize(), str(report.longrepr.reprtraceback)))
+
+
+
     if driver is not None:
         if failure:
             _gather_screenshot(item, report, driver, summary, extra)
             _gather_page_source(item, report, driver, summary, extra)
+
     if summary:
         report.sections.append(('pytest-appium', '\n'.join(summary)))
     report.extra = extra
