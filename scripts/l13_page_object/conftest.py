@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 import sys
 import logging
+import os
 
 from appium import webdriver
 import pytest
 
 
 PY3 = sys.version_info[0] == 3
+framework_dir = os.path.join(os.path.abspath(__file__), "..")
 
 logging.basicConfig(level = logging.INFO,
-                    filename = "/Users/hengjiechen/Documents/Training/appium_ios/scripts/l13_page_object/test.log",
+                    filename = os.path.join(framework_dir, "test.log"),
                     filemode = "w",
                     stream = sys.stdout,
                     format = "%(asctime)s - [%(name)s] %(levelname)s: %(message)s")
@@ -30,7 +32,7 @@ def logger(request):
 
 
 def pytest_addoption(parser):
-    parser.addoption("--app_path", help="path of app file", required=True)
+    parser.addoption("--app_path", help="path of app file. Should be related path of l13_page_object folder", required=True)
     parser.addoption("--platform", help = "platform of device", required = True)
     parser.addoption("--device_name", help = "name of device", required = True)
     parser.addoption("--device_udid", help = "udid of device")
@@ -38,7 +40,9 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope = 'session')
 def app_path(request):
-    return request.config.getoption('app_path')
+    option_app_path = request.config.getoption('app_path')
+    app_path = os.path.join(framework_dir, option_app_path)
+    return app_path
 
 
 @pytest.fixture(scope = 'session')
