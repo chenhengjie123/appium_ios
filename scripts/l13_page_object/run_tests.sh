@@ -3,5 +3,6 @@ py.test \
     --platform=iOS \
     --device_name="iPhone 6 Plus" \
     --html=report.html \
-    --rerun 2
+    --rerun 1
+    --junitxml=report.xml
 
