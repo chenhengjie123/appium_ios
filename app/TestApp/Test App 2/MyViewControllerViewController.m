@@ -150,7 +150,7 @@
 - (IBAction)computeAction:(id)sender {
 	int a = [[firstArg text] intValue];
 	int b = [[secondArg text] intValue];
-	int sum = a + b + 1;
+	int sum = a + b;
 	NSString *newLabelValue = [NSString stringWithFormat:@"%d",sum];
 	[answerLabel setText:newLabelValue];
 	[answerLabel setAccessibilityLabel:newLabelValue];
